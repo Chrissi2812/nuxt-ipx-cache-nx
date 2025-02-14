@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.0.4
+
+[compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.3...v1.0.4)
+
+### 🩹 Fixes
+
+- Lost expires ([aa2a393](https://github.com/manot40/nuxt-ipx-cache/commit/aa2a393))
+
+### ❤️ Contributors
+
+- Manot40 ([@manot40](http://github.com/manot40))
+
 ## v1.0.3
 
 [compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.2...v1.0.3)
