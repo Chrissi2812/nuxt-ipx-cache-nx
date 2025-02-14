@@ -29,7 +29,7 @@ export default defineNuxtModule<ModuleOptions>({
     const { resolve } = createResolver(import.meta.url);
 
     const config = nuxt.options.runtimeConfig;
-    config.ipxCache = defu(<ModuleOptions>(config.ipxCache ??= {}), opts);
+    config.ipxCache = defu((config.ipxCache ??= <typeof config.ipxCache>{ ...opts }), opts);
 
     nuxt.options.routeRules = <typeof nuxt.options.routeRules>defu(nuxt.options.routeRules, {
       [`${opts.ipxPrefix}/**`]: {
