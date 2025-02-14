@@ -39,7 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
       },
     });
 
-    addServerPlugin(resolve('./runtime/server/plugin.ts'));
-    addServerImports([{ name: 'createIPXCache', from: resolve('./runtime/server/cache.ts') }]);
+    addServerPlugin(resolve('./runtime/server/plugin'));
+    addServerImports([{ name: 'createIPXCache', from: resolve('./runtime/server/cache') }]);
   },
 });
