@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.0.1
+
+[compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.0...v1.0.1)
+
+### 🩹 Fixes
+
+- File not found ([bad2eae](https://github.com/manot40/nuxt-ipx-cache/commit/bad2eae))
+
+### ❤️ Contributors
+
+- Kevin Sandiho ([@manot40](http://github.com/manot40))
+
 ## v1.0.0
 
 
