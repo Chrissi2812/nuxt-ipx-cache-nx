@@ -45,17 +45,18 @@ export default defineNitroPlugin((nitroApp) => {
       return originalWrite(chunk, <BufferEncoding>encoding, callback);
     });
     originalRes.end = <CustomStream<ServerResponse>>((chunk, encoding, callback) => {
+      const expires = new Date().toUTCString();
       if (chunk) passThrough.write(chunk, encoding as BufferEncoding, callback);
-      setHeaders(evt, { 'cache-status': 'MISS' });
-      originalEnd(chunk, encoding, callback);
 
+      setHeaders(evt, { expires, 'cache-status': 'MISS' });
+      originalEnd(chunk, encoding, callback);
       if (originalRes.statusCode !== 200) return originalRes;
 
       const originHead = originalRes.getHeaders();
       const data = captureStream.getBuffer();
       const meta = {
         etag: originHead['etag'],
-        expires: new Date().toUTCString(),
+        expires,
         'content-type': originHead['content-type'],
         'last-modified': originHead['last-modified'],
         'content-length': data.byteLength.toString(),
