@@ -55,8 +55,8 @@ export default defineNitroPlugin((nitroApp) => {
       const data = captureStream.getBuffer();
       const meta = {
         etag: originHead['etag'],
+        expires: new Date().toUTCString(),
         'content-type': originHead['content-type'],
-        'last-modified': new Date().toUTCString(),
         'content-length': data.byteLength.toString(),
       } satisfies IncomingHttpHeaders;
 

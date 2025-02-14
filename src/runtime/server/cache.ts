@@ -16,7 +16,7 @@ export function createIPXCache(cacheDir: string, defaultTTL = 86400) {
       if (!Buffer.isBuffer(raw)) return;
 
       const meta = await store.getItem<OutgoingHttpHeaders>(`${path}.json`);
-      const lastMod = new Date(meta?.['last-modified'] || 0).getTime();
+      const lastMod = new Date(meta?.expires || 0).getTime();
       const expiresIn = lastMod + defaultTTL * 1000;
       // Check if blob is expired using staled HTTP headers
       if (Date.now() > expiresIn) return;

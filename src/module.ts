@@ -35,7 +35,7 @@ export default defineNuxtModule<ModuleOptions>({
       [`${opts.ipxPrefix}/**`]: {
         swr: false,
         cache: false,
-        headers: { 'cache-control': `s-maxage=${opts.maxAge}, stale-while-revalidate` },
+        headers: { 'cache-control': `public, max-age=${opts.maxAge}, no-transform` },
       },
     });
 
