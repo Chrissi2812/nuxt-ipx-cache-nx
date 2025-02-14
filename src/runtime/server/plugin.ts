@@ -57,6 +57,7 @@ export default defineNitroPlugin((nitroApp) => {
         etag: originHead['etag'],
         expires: new Date().toUTCString(),
         'content-type': originHead['content-type'],
+        'last-modified': originHead['last-modified'],
         'content-length': data.byteLength.toString(),
       } satisfies IncomingHttpHeaders;
 
