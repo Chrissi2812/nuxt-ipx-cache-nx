@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.0.3
+
+[compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.2...v1.0.3)
+
+### 🩹 Fixes
+
+- Add last-mod header ([f56496e](https://github.com/manot40/nuxt-ipx-cache/commit/f56496e))
+
+### ❤️ Contributors
+
+- Manot40 ([@manot40](http://github.com/manot40))
+
 ## v1.0.2
 
 [compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.1...v1.0.2)

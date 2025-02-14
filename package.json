@@ -1,6 +1,6 @@
 {
   "name": "nuxt-ipx-cache",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Cache ipx-optimized image to disk and save your cpu time!",
   "repository": "manot40/nuxt-ipx-cache",
   "license": "MIT",
