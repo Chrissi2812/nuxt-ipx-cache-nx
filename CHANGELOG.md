@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.0.5
+
+[compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.4...v1.0.5)
+
+### 🩹 Fixes
+
+- Cache timing ([b8aa7c8](https://github.com/manot40/nuxt-ipx-cache/commit/b8aa7c8))
+
+### ❤️ Contributors
+
+- Manot40 ([@manot40](http://github.com/manot40))
+
 ## v1.0.4
 
 [compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.3...v1.0.4)
