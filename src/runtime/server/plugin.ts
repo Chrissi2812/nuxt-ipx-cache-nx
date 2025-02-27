@@ -45,7 +45,7 @@ export default defineNitroPlugin((nitroApp) => {
       return originalWrite(chunk, <BufferEncoding>encoding, callback);
     });
     originalRes.end = <CustomStream<ServerResponse>>((chunk, encoding, callback) => {
-      const expires = new Date().toUTCString();
+      const expires = new Date(Date.now() + config.maxAge * 1000).toUTCString();
       if (chunk) passThrough.write(chunk, encoding as BufferEncoding, callback);
 
       setHeaders(evt, { expires, 'cache-status': 'MISS' });
