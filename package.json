@@ -18,6 +18,7 @@
     "dist"
   ],
   "scripts": {
+    "prepare": "nuxt-module-build prepare",
     "prepack": "nuxt-module-build build",
     "dev": "nuxt dev playground",
     "dev:build": "nuxt build playground",
