@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.1
+
+[compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.0...v1.1.1)
+
+### 🏡 Chore
+
+- **ci:** Add prepare, test, and prepack steps to publish workflow ([412ab6f](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/412ab6f))
+
+### ❤️ Contributors
+
+- Christoph Flathmann ([@Chrissi2812](https://github.com/Chrissi2812))
+
 ## v1.1.0
 
 [compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.0.6...v1.1.0)
