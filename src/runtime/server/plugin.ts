@@ -12,7 +12,7 @@ export default defineNitroPlugin((nitroApp) => {
   const { ipxCache: config } = useRuntimeConfig();
   const ipxPrefix = `${config.ipxPrefix}/`;
 
-  const cacheStore = createIPXCache(config.cacheDir, config.maxAge);
+  const cacheStore = createIPXCache(config.cacheDir, config.maxAge, config.extendThreshold);
 
   nitroApp.hooks.hook('request', async function (evt) {
     if (!evt.path.startsWith(ipxPrefix)) return;

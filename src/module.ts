@@ -7,6 +7,8 @@ import { addServerImports, addServerPlugin, createResolver, defineNuxtModule } f
 export interface ModuleOptions {
   /** Max cache age in seconds before getting deleted from disk. (default 1 day) */
   maxAge?: number;
+  /** Threshold in seconds to extend cache entry */
+  extendThreshold?: number;
   /** Image cache location relative to `process.cwd()`. (defaults to `.cache/ipx`) */
   cacheDir?: string;
   ipxPrefix?: string;
@@ -21,6 +23,7 @@ export default defineNuxtModule<ModuleOptions>({
 
   defaults: {
     maxAge: 60 * 60 * 24,
+    extendThreshold: 60 * 60,
     cacheDir: join(process.cwd(), '.cache/ipx'),
     ipxPrefix: '/_ipx',
   },

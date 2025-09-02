@@ -9,5 +9,6 @@ export default defineNuxtConfig({
 
   ipxCache: {
     maxAge: 10,
+    extendThreshold: 5,
   },
 });

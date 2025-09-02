@@ -7,8 +7,9 @@ import fsDriver from 'unstorage/drivers/fs-lite';
 /**
  * @param cacheDir Persistance cache directory.
  * @param defaultTTL Default TTL in seconds
+ * @param extendThreshold Threshold in seconds to extend cache entry
  */
-export function createIPXCache(cacheDir: string, defaultTTL = 86400) {
+export function createIPXCache(cacheDir: string, defaultTTL = 86400, extendThreshold = 3600) {
   const store = createStorage<string>({ driver: fsDriver({ base: cacheDir }) });
 
   return <CacheStorage>{
@@ -22,7 +23,13 @@ export function createIPXCache(cacheDir: string, defaultTTL = 86400) {
         new Date(meta.expires as Date).getTime() :
         (new Date(meta?.mtime || 0).getTime() + defaultTTL * 1000);
 
-      if (Date.now() > expires) {
+      // Check if entry is close to expire and extend it
+      if (Date.now() > expires - (extendThreshold * 1000)) {
+        meta.atime = new Date();
+        meta.expires = new Date( meta.atime.getTime() + (defaultTTL * 1000));
+
+        await store.setMeta(path, meta);
+      } else if (Date.now() > expires) {
         // if expired, we will recreate it
         return;
       }
