@@ -1,6 +1,7 @@
-import type { OutgoingHttpHeaders } from 'node:http';
-
-import { createStorage } from 'unstorage';
+import {
+  createStorage,
+  type StorageMeta,
+} from 'unstorage';
 import fsDriver from 'unstorage/drivers/fs-lite';
 
 /**
@@ -9,63 +10,52 @@ import fsDriver from 'unstorage/drivers/fs-lite';
  */
 export function createIPXCache(cacheDir: string, defaultTTL = 86400) {
   const store = createStorage<string>({ driver: fsDriver({ base: cacheDir }) });
-  const timers = new Map<string, NodeJS.Timeout>();
+
   return <CacheStorage>{
     async get(path) {
       const raw = await store.getItemRaw(path);
       if (!Buffer.isBuffer(raw)) return;
 
-      const meta = await store.getItem<OutgoingHttpHeaders>(`${path}.json`);
-      const lastMod = new Date(meta?.expires || 0).getTime();
-      const expiresIn = lastMod + defaultTTL * 1000;
-      // Check if blob is expired using staled HTTP headers
-      if (Date.now() > expiresIn) return;
+      const meta = await store.getMeta(path);
 
-      if (!timers.has(path)) {
-        const timeout = setTimeout(() => this.del(path), expiresIn - Date.now());
-        timers.set(path, timeout);
+      const expires = meta.expires ?
+        new Date(meta.expires as Date).getTime() :
+        (new Date(meta?.mtime || 0).getTime() + defaultTTL * 1000);
+
+      if (Date.now() > expires) {
+        // if expired, we will recreate it
+        return;
       }
 
       return { meta, data: new Blob([raw]) };
     },
 
-    async set(path, { data, meta }, ttl = defaultTTL) {
-      if (timers.has(path)) clearTimeout(timers.get(path));
-      const timeout = setTimeout(() => this.del(path), ttl * 1000);
-
+    async set(path, { data, meta }) {
       await Promise.all([
         store.setItemRaw(path, Buffer.isBuffer(data) ? data : await data.arrayBuffer()),
-        store.setItem(`${path}.json`, JSON.stringify(meta)),
-      ]).catch(console.error);
-
-      timers.set(path, timeout);
+        store.setMeta(path, meta),
+      ]);
     },
 
     async del(path) {
-      if (timers.has(path)) clearTimeout(timers.get(path));
-      timers.delete(path);
-
-      const promises = [store.removeItem(path), store.removeItem(`${path}.json`)];
-      await Promise.all(promises).catch(() => void 0);
+      await store.removeItem(path);
     },
 
-    clear() {
-      store.clear();
-      for (const v of timers.values()) clearTimeout(v);
-      timers.clear();
+    async clear() {
+      await store.clear();
     },
   };
 }
 
 interface CachedData {
   data: Blob;
-  meta: OutgoingHttpHeaders;
+  meta: StorageMeta;
 }
 
 type PayloadData = Omit<CachedData, 'data'> & { data: Blob | Buffer };
 
 interface CacheStorage {
-  set: (path: string, val: PayloadData, ttl?: number) => Promise<void>;
+  set: (path: string, val: PayloadData) => Promise<void>;
   get: (path: string) => Promise<CachedData | undefined>;
   del: (path: string) => Promise<void>;
   clear: () => void;
