@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v1.1.0
+
+[compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.0.6...v1.1.0)
+
+### 🚀 Enhancements
+
+- Add extendThreshold option to prolong entry expiry ([c7b7c03](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/c7b7c03))
+
+### 🩹 Fixes
+
+- Simplify metadata handling and remove path timers because of 32-bit max integer issues ([9186dfa](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/9186dfa))
+- **playground:** Update image domains and replace placeholder image in NuxtImg component ([e29d8dd](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/e29d8dd))
+
+### 🏡 Chore
+
+- Rename package and add GitHub Actions for npm publishing ([8d6776a](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/8d6776a))
+
+### ❤️ Contributors
+
+- Christoph Flathmann ([@Chrissi2812](https://github.com/Chrissi2812))
+
 ## v1.0.6
 
 [compare changes](https://github.com/manot40/nuxt-ipx-cache/compare/v1.0.5...v1.0.6)
