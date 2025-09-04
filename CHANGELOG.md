@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.1.2
+
+[compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.1...v1.1.2)
+
+### 🩹 Fixes
+
+- **cache:** Add `sanitizeHeaders` utility for consistent header handling ([a3a2fb7](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/a3a2fb7))
+
+### 💅 Refactors
+
+- **module:** Remove unnecessary `addServerImports` ([91858f8](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/91858f8))
+
+### ❤️ Contributors
+
+- Christoph Flathmann ([@Chrissi2812](http://github.com/Chrissi2812))
+
 ## v1.1.1
 
 [compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.0...v1.1.1)
