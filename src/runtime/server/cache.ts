@@ -1,8 +1,6 @@
-import {
-  createStorage,
-  type StorageMeta,
-} from 'unstorage';
+import { createStorage } from 'unstorage';
 import fsDriver from 'unstorage/drivers/fs-lite';
+import { sanitizeHeaders, type StorageMetaHeaders } from '../utils/common';
 
 /**
  * @param cacheDir Persistance cache directory.
@@ -12,23 +10,23 @@ import fsDriver from 'unstorage/drivers/fs-lite';
 export function createIPXCache(cacheDir: string, defaultTTL = 86400, extendThreshold = 3600) {
   const store = createStorage<string>({ driver: fsDriver({ base: cacheDir }) });
 
+
   return <CacheStorage>{
     async get(path) {
       const raw = await store.getItemRaw(path);
       if (!Buffer.isBuffer(raw)) return;
 
-      const meta = await store.getMeta(path);
+      const meta = await store.getMeta(path) as StorageMetaHeaders;
 
       const expires = meta.expires ?
-        new Date(meta.expires as Date).getTime() :
+        new Date(meta.expires).getTime() :
         (new Date(meta?.mtime || 0).getTime() + defaultTTL * 1000);
 
       // Check if entry is close to expire and extend it
       if (Date.now() > expires - (extendThreshold * 1000)) {
-        meta.atime = new Date();
-        meta.expires = new Date( meta.atime.getTime() + (defaultTTL * 1000));
+        meta.expires = new Date( new Date().getTime() + (defaultTTL * 1000)).toUTCString();
 
-        await store.setMeta(path, meta);
+        await store.setMeta(path, sanitizeHeaders(meta));
       } else if (Date.now() > expires) {
         // if expired, we will recreate it
         return;
@@ -40,7 +38,7 @@ export function createIPXCache(cacheDir: string, defaultTTL = 86400, extendThres
     async set(path, { data, meta }) {
       await Promise.all([
         store.setItemRaw(path, Buffer.isBuffer(data) ? data : await data.arrayBuffer()),
-        store.setMeta(path, meta),
+        store.setMeta(path, sanitizeHeaders(meta)),
       ]);
     },
 
@@ -56,7 +54,7 @@ export function createIPXCache(cacheDir: string, defaultTTL = 86400, extendThres
 
 interface CachedData {
   data: Blob;
-  meta: StorageMeta;
+  meta: StorageMetaHeaders;
 }
 
 type PayloadData = Omit<CachedData, 'data'> & { data: Blob | Buffer };

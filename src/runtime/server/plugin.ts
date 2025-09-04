@@ -1,9 +1,10 @@
-import type { IncomingHttpHeaders, ServerResponse } from 'node:http';
+import type { ServerResponse } from 'node:http';
 
 import { createIPXCache } from './cache';
 
 import { PassThrough } from 'node:stream';
 import { CaptureStream } from '../utils/capture-stream';
+import { sanitizeHeaders } from '../utils/common';
 
 import { sendStream, setHeaders, getHeader } from 'h3';
 import { defineNitroPlugin, useRuntimeConfig } from 'nitropack/runtime';
@@ -27,8 +28,7 @@ export default defineNitroPlugin((nitroApp) => {
       /** Load from cache if there is any */
       const cached = await cacheStore.get(reqUrl);
       if (cached) {
-        setHeaders(evt, { ...(<HeadersInit>cached.meta), 'cache-status': 'HIT' });
-        originalRes.setHeader = (_key, _val) => originalRes;
+        setHeaders(evt, { ...(<HeadersInit>sanitizeHeaders(cached.meta)), 'cache-status': 'HIT' });
         return sendStream(evt, cached.data.stream());
       }
     }
@@ -54,14 +54,11 @@ export default defineNitroPlugin((nitroApp) => {
 
       const originHead = originalRes.getHeaders();
       const data = captureStream.getBuffer();
-      const meta = {
-        etag: originHead['etag'],
+      const meta = sanitizeHeaders({
+        ...originHead,
         expires,
-        'content-type': originHead['content-type'],
-        'cache-control': originHead['cache-control'],
-        'last-modified': originHead['last-modified'],
-        'content-length': data.byteLength.toString(),
-      } satisfies IncomingHttpHeaders;
+        'content-length': data.byteLength,
+      });
 
       cacheStore.set(reqUrl, { data, meta });
       return originalRes;
