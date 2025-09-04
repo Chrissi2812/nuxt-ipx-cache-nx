@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v1.1.5
+
+[compare changes](https://github.com/Chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.4...v1.1.5)
+
+### 🏡 Chore
+
+- **ci:** Update permissions in release workflow to require write access ([c7dbd77](https://github.com/Chrissi2812/nuxt-ipx-cache-nx/commit/c7dbd77))
+- **ci:** Add `workflow_dispatch` to allow manual publishing trigger ([3ca6ff4](https://github.com/Chrissi2812/nuxt-ipx-cache-nx/commit/3ca6ff4))
+- **package:** Update repository URL casing in package.json ([e551b05](https://github.com/Chrissi2812/nuxt-ipx-cache-nx/commit/e551b05))
+- **ci:** Remove publish workflow and integrate publish steps into release workflow ([dfaf101](https://github.com/Chrissi2812/nuxt-ipx-cache-nx/commit/dfaf101))
+
+### ❤️ Contributors
+
+- Christoph Flathmann ([@Chrissi2812](http://github.com/Chrissi2812))
+
 ## v1.1.4
 
 [compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.3...v1.1.4)
