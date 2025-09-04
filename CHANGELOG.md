@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.4
+
+[compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.3...v1.1.4)
+
+### 🏡 Chore
+
+- **ci:** Add manual trigger to release workflow and update token parameter ([2b61b04](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/2b61b04))
+
+### ❤️ Contributors
+
+- Christoph Flathmann ([@Chrissi2812](http://github.com/Chrissi2812))
+
 ## v1.1.3
 
 [compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.2...v1.1.3)
