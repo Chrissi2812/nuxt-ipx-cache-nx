@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.1.3
+
+[compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.2...v1.1.3)
+
+### 🏡 Chore
+
+- **docs:** Update README with new package name and badge links ([6f03081](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/6f03081))
+- **ci:** Add GitHub Actions workflow for release creation ([fece377](https://github.com/chrissi2812/nuxt-ipx-cache-nx/commit/fece377))
+
+### ❤️ Contributors
+
+- Christoph Flathmann ([@Chrissi2812](http://github.com/Chrissi2812))
+
 ## v1.1.2
 
 [compare changes](https://github.com/chrissi2812/nuxt-ipx-cache-nx/compare/v1.1.1...v1.1.2)
